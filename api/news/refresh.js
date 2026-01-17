@@ -59,13 +59,54 @@ function extractSourceFromUrl(url) {
     try {
         const hostname = new URL(url).hostname.replace('www.', '');
         const sources = {
+            // National UK
             'bbc.co.uk': 'BBC News',
             'bbc.com': 'BBC News',
-            'glasgowworld.com': 'Glasgow World',
-            'dailyrecord.co.uk': 'Daily Record',
-            'edinburghnews.scotsman.com': 'Edinburgh News',
+            'theguardian.com': 'The Guardian',
+            'independent.co.uk': 'The Independent',
+            'mirror.co.uk': 'Daily Mirror',
+            'express.co.uk': 'Daily Express',
+            'dailymail.co.uk': 'Daily Mail',
+            'telegraph.co.uk': 'The Telegraph',
+            'metro.co.uk': 'Metro',
+            'standard.co.uk': 'Evening Standard',
+            'itv.com': 'ITV News',
+            'sky.com': 'Sky News',
+            // Scotland
             'scotsman.com': 'The Scotsman',
             'heraldscotland.com': 'The Herald',
+            'dailyrecord.co.uk': 'Daily Record',
+            'glasgowlive.co.uk': 'Glasgow Live',
+            'glasgowworld.com': 'Glasgow World',
+            'edinburghlive.co.uk': 'Edinburgh Live',
+            'edinburghnews.scotsman.com': 'Edinburgh News',
+            'pressandjournal.co.uk': 'Press and Journal',
+            'thecourier.co.uk': 'The Courier',
+            'stv.tv': 'STV News',
+            'kirkintilloch-herald.co.uk': 'Kirkintilloch Herald',
+            'milngavieherald.co.uk': 'Milngavie Herald',
+            'dumbartonreporter.co.uk': 'Dumbarton Reporter',
+            // England
+            'manchestereveningnews.co.uk': 'Manchester Evening News',
+            'liverpoolecho.co.uk': 'Liverpool Echo',
+            'chroniclelive.co.uk': 'Chronicle Live',
+            'yorkshirepost.co.uk': 'Yorkshire Post',
+            'birminghammail.co.uk': 'Birmingham Mail',
+            'birminghamlive.co.uk': 'Birmingham Live',
+            'bristolpost.co.uk': 'Bristol Post',
+            'devonlive.com': 'Devon Live',
+            'cornwalllive.com': 'Cornwall Live',
+            'kentlive.news': 'Kent Live',
+            'sussexlive.co.uk': 'Sussex Live',
+            'essexlive.news': 'Essex Live',
+            'mylondon.news': 'MyLondon',
+            // Wales
+            'walesonline.co.uk': 'Wales Online',
+            'dailypost.co.uk': 'Daily Post',
+            // Northern Ireland
+            'belfasttelegraph.co.uk': 'Belfast Telegraph',
+            'belfastlive.co.uk': 'Belfast Live',
+            'irishnews.com': 'Irish News',
         };
         return sources[hostname] || hostname;
     } catch {
