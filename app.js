@@ -7,6 +7,7 @@ let currentLocation = {
 };
 let currentRadius = 10;
 let currentCategory = 'all';
+let currentSort = 'distance-asc'; // distance-asc, distance-desc, date-asc, date-desc
 
 // Weather emoji mapping
 const weatherIcons = {
@@ -1121,13 +1122,30 @@ function updateWeatherUI(data) {
 
 // Add distance to each news item and filter by radius
 function processNewsData(data) {
-    return data
+    const processed = data
         .map(item => ({
             ...item,
             distance: calculateDistance(currentLocation.lat, currentLocation.lng, item.lat, item.lng)
         }))
-        .filter(item => item.distance <= currentRadius)
-        .sort((a, b) => a.distance - b.distance);
+        .filter(item => item.distance <= currentRadius);
+
+    // Sort based on current sort selection
+    switch (currentSort) {
+        case 'distance-asc':
+            processed.sort((a, b) => a.distance - b.distance);
+            break;
+        case 'distance-desc':
+            processed.sort((a, b) => b.distance - a.distance);
+            break;
+        case 'date-asc':
+            processed.sort((a, b) => new Date(a.date) - new Date(b.date));
+            break;
+        case 'date-desc':
+            processed.sort((a, b) => new Date(b.date) - new Date(a.date));
+            break;
+    }
+
+    return processed;
 }
 
 // Format distance for display
@@ -1143,6 +1161,7 @@ function formatDistance(miles) {
 
 // Create HTML for a single news item
 function createNewsItemHTML(item) {
+    const relativeDate = getRelativeDate(item.date);
     return `
         <article class="news-item" data-category="${item.category}">
             <div class="news-header">
@@ -1150,6 +1169,7 @@ function createNewsItemHTML(item) {
                 <span class="news-distance">${formatDistance(item.distance)}</span>
             </div>
             <div class="news-meta">
+                <span class="news-date-badge" title="${formatDate(item.date)}">${relativeDate}</span>
                 <span class="news-location">${item.location}</span>
                 <span class="news-category category-${item.category}">${item.category}</span>
             </div>
@@ -1160,6 +1180,21 @@ function createNewsItemHTML(item) {
             </p>
         </article>
     `;
+}
+
+// Get relative date string (e.g., "Today", "Yesterday", "3 days ago")
+function getRelativeDate(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffTime = now - date;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 14) return '1 week ago';
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    return formatDate(dateStr);
 }
 
 // Format date for display
@@ -1395,6 +1430,7 @@ function loadSavedSettings() {
     const savedLocation = localStorage.getItem('localnews-location');
     const savedRadius = localStorage.getItem('localnews-radius');
     const savedWeatherExpanded = localStorage.getItem('localnews-weather-expanded');
+    const savedSort = localStorage.getItem('localnews-sort');
 
     if (savedLocation) {
         try {
@@ -1408,6 +1444,11 @@ function loadSavedSettings() {
         currentRadius = parseInt(savedRadius);
         document.getElementById('radius-slider').value = currentRadius;
         document.getElementById('radius-value').textContent = currentRadius;
+    }
+
+    if (savedSort) {
+        currentSort = savedSort;
+        document.getElementById('sort-select').value = currentSort;
     }
 
     // Weather is collapsed by default
@@ -1453,6 +1494,12 @@ function init() {
 
     document.getElementById('category-filter').addEventListener('change', (e) => {
         currentCategory = e.target.value;
+        renderNews();
+    });
+
+    document.getElementById('sort-select').addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        localStorage.setItem('localnews-sort', currentSort);
         renderNews();
     });
 

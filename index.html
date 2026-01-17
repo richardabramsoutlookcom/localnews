@@ -218,24 +218,35 @@
         </div>
 
         <div class="controls">
-            <label for="category-filter">Filter by category:</label>
-            <select id="category-filter">
-                <option value="all">All News</option>
-                <option value="crime">Crime & Safety</option>
-                <option value="traffic">Traffic & Transport</option>
-                <option value="community">Community</option>
-                <option value="events">Events</option>
-                <option value="business">Business</option>
-                <option value="council">Council & Government</option>
-            </select>
-            <span class="news-count" id="news-count"></span>
-            <button id="refresh-btn" class="refresh-btn" title="Refresh news">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 4v6h-6"></path>
-                    <path d="M1 20v-6h6"></path>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                </svg>
-            </button>
+            <div class="controls-row">
+                <label for="category-filter">Filter:</label>
+                <select id="category-filter">
+                    <option value="all">All News</option>
+                    <option value="crime">Crime & Safety</option>
+                    <option value="traffic">Traffic & Transport</option>
+                    <option value="community">Community</option>
+                    <option value="events">Events</option>
+                    <option value="business">Business</option>
+                    <option value="council">Council & Government</option>
+                </select>
+                <label for="sort-select">Sort:</label>
+                <select id="sort-select">
+                    <option value="distance-asc">Nearest first</option>
+                    <option value="distance-desc">Furthest first</option>
+                    <option value="date-desc">Newest first</option>
+                    <option value="date-asc">Oldest first</option>
+                </select>
+            </div>
+            <div class="controls-row">
+                <span class="news-count" id="news-count"></span>
+                <button id="refresh-btn" class="refresh-btn" title="Refresh news">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6"></path>
+                        <path d="M1 20v-6h6"></path>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <div id="news-container">
