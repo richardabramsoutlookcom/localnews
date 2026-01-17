@@ -1,16 +1,18 @@
 {
   "name": "localnews",
   "version": "2.0.0",
-  "description": "Local UK news app with web search and local SQLite database",
+  "description": "Local UK news app with Vercel serverless functions and Postgres",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "vercel-dev": "vercel dev"
   },
-  "keywords": ["news", "local", "uk", "sqlite"],
+  "keywords": ["news", "local", "uk", "vercel"],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.0",
     "better-sqlite3": "^9.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2"

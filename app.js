@@ -101,8 +101,8 @@ const postcodeCoordinates = {
     'G53': { lat: 55.8200, lng: -4.3500, name: 'Pollok' }
 };
 
-// API base URL - use same origin when served from Node server
-const API_BASE = window.location.origin;
+// API base URL - empty string for same-origin requests (works on Vercel and localhost)
+const API_BASE = '';
 
 // Fetch news from server API
 async function fetchAllNews() {

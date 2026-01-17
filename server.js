@@ -311,10 +311,13 @@ app.get('/api/news', async (req, res) => {
             )) AS distance
         FROM news
         WHERE date >= date('now', '-30 days')
-        HAVING distance <= ?
+          AND (3959 * acos(
+                cos(radians(?)) * cos(radians(lat)) * cos(radians(lng) - radians(?)) +
+                sin(radians(?)) * sin(radians(lat))
+            )) <= ?
         ORDER BY date DESC, distance ASC
         LIMIT 100
-    `).all(latNum, lngNum, latNum, radiusNum);
+    `).all(latNum, lngNum, latNum, latNum, lngNum, latNum, radiusNum);
 
     res.json({
         success: true,
