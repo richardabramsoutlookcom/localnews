@@ -839,6 +839,26 @@ main {
     font-size: 1.1rem;
 }
 
+.news-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem;
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.news-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(79, 195, 247, 0.3);
+    border-top-color: #4fc3f7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
 footer {
     text-align: center;
     padding: 2rem;

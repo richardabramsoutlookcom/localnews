@@ -8,6 +8,8 @@ let currentLocation = {
 let currentRadius = 10;
 let currentCategory = 'all';
 let currentSort = 'distance-asc'; // distance-asc, distance-desc, date-asc, date-desc
+let newsData = []; // Will be populated from RSS feeds
+let isLoadingNews = false;
 
 // Weather emoji mapping
 const weatherIcons = {
@@ -99,12 +101,304 @@ const postcodeCoordinates = {
     'G53': { lat: 55.8200, lng: -4.3500, name: 'Pollok' }
 };
 
-// News data with locations
-const newsData = [
+// UK local news RSS sources - regional newspapers and news sites
+const ukNewsSources = [
+    // Scotland
+    { name: 'Glasgow World', rss: 'https://www.glasgowworld.com/rss', region: 'Glasgow', lat: 55.8642, lng: -4.2518 },
+    { name: 'Edinburgh News', rss: 'https://www.edinburghnews.scotsman.com/rss', region: 'Edinburgh', lat: 55.9533, lng: -3.1883 },
+    { name: 'The Scotsman', rss: 'https://www.scotsman.com/rss', region: 'Scotland', lat: 55.9533, lng: -3.1883 },
+    { name: 'Daily Record', rss: 'https://www.dailyrecord.co.uk/news/?service=rss', region: 'Scotland', lat: 55.8642, lng: -4.2518 },
+    // England - Major cities
+    { name: 'Manchester Evening News', rss: 'https://www.manchestereveningnews.co.uk/rss.xml', region: 'Manchester', lat: 53.4808, lng: -2.2426 },
+    { name: 'Birmingham Live', rss: 'https://www.birminghammail.co.uk/rss.xml', region: 'Birmingham', lat: 52.4862, lng: -1.8904 },
+    { name: 'Liverpool Echo', rss: 'https://www.liverpoolecho.co.uk/rss.xml', region: 'Liverpool', lat: 53.4084, lng: -2.9916 },
+    { name: 'Yorkshire Post', rss: 'https://www.yorkshirepost.co.uk/rss', region: 'Yorkshire', lat: 53.8008, lng: -1.5491 },
+    { name: 'Newcastle Chronicle', rss: 'https://www.chroniclelive.co.uk/rss.xml', region: 'Newcastle', lat: 54.9783, lng: -1.6178 },
+    { name: 'Bristol Post', rss: 'https://www.bristolpost.co.uk/rss.xml', region: 'Bristol', lat: 51.4545, lng: -2.5879 },
+    // Wales
+    { name: 'Wales Online', rss: 'https://www.walesonline.co.uk/rss.xml', region: 'Wales', lat: 51.4816, lng: -3.1791 },
+    // Northern Ireland
+    { name: 'Belfast Telegraph', rss: 'https://www.belfasttelegraph.co.uk/rss/', region: 'Belfast', lat: 54.5973, lng: -5.9301 },
+    // London
+    { name: 'Evening Standard', rss: 'https://www.standard.co.uk/rss', region: 'London', lat: 51.5074, lng: -0.1278 },
+];
+
+// Category keywords for classification
+const categoryKeywords = {
+    crime: ['police', 'crime', 'arrest', 'murder', 'theft', 'robbery', 'assault', 'court', 'jail', 'prison', 'stabbing', 'shooting', 'fraud', 'drug'],
+    traffic: ['road', 'traffic', 'transport', 'bus', 'train', 'railway', 'motorway', 'a road', 'm8', 'm74', 'accident', 'crash', 'closure', 'diversion', 'roadworks'],
+    community: ['community', 'volunteer', 'charity', 'school', 'church', 'local', 'resident', 'neighbourhood', 'park', 'library', 'award'],
+    events: ['event', 'festival', 'concert', 'show', 'exhibition', 'opening', 'celebration', 'christmas', 'halloween', 'new year', 'weekend'],
+    business: ['business', 'shop', 'store', 'restaurant', 'cafe', 'pub', 'company', 'job', 'employment', 'economy', 'investment', 'development'],
+    council: ['council', 'government', 'minister', 'mp', 'msp', 'planning', 'tax', 'budget', 'election', 'vote', 'policy']
+};
+
+// Fetch news from Google News RSS for a location
+async function fetchGoogleNews(locationName) {
+    const query = encodeURIComponent(`${locationName} UK news`);
+    const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-GB&gl=GB&ceid=GB:en`;
+
+    // Use RSS2JSON service to handle CORS
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items) {
+            return data.items.map((item, index) => ({
+                id: `google-${locationName}-${index}-${Date.now()}`,
+                title: cleanHtml(item.title),
+                content: cleanHtml(item.description || item.content || 'No description available.'),
+                location: locationName,
+                lat: currentLocation.lat + (Math.random() - 0.5) * 0.1, // Approximate location
+                lng: currentLocation.lng + (Math.random() - 0.5) * 0.1,
+                category: categorizeArticle(item.title + ' ' + (item.description || '')),
+                source: extractSource(item.title) || 'Google News',
+                sourceUrl: item.link,
+                date: item.pubDate ? new Date(item.pubDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+            }));
+        }
+    } catch (error) {
+        console.error('Error fetching Google News:', error);
+    }
+    return [];
+}
+
+// Fetch from multiple location searches to get diverse local news
+async function fetchAllNews() {
+    if (isLoadingNews) return;
+    isLoadingNews = true;
+
+    showNewsLoading();
+
+    const locationName = currentLocation.name || currentLocation.postcode;
+    const searchTerms = [
+        locationName,
+        getRegionFromPostcode(currentLocation.postcode),
+        getNearbyAreas(currentLocation.lat, currentLocation.lng)
+    ].filter(Boolean).flat();
+
+    // Remove duplicates
+    const uniqueSearches = [...new Set(searchTerms)].slice(0, 5);
+
+    console.log('Fetching news for:', uniqueSearches);
+
+    try {
+        const allResults = await Promise.all(
+            uniqueSearches.map(term => fetchGoogleNews(term))
+        );
+
+        // Flatten and deduplicate by title
+        const seenTitles = new Set();
+        newsData = allResults.flat().filter(item => {
+            const titleLower = item.title.toLowerCase();
+            if (seenTitles.has(titleLower)) return false;
+            seenTitles.add(titleLower);
+            return true;
+        });
+
+        // If we got news, geocode them properly
+        if (newsData.length > 0) {
+            await geocodeNewsItems();
+        }
+
+        console.log(`Fetched ${newsData.length} news items`);
+    } catch (error) {
+        console.error('Error fetching news:', error);
+        newsData = [];
+    }
+
+    isLoadingNews = false;
+    hideNewsLoading();
+    renderNews();
+}
+
+// Try to geocode news items based on location mentions
+async function geocodeNewsItems() {
+    // Extract location mentions from titles/content and try to geocode
+    for (let item of newsData) {
+        const locationMatch = extractLocationFromText(item.title + ' ' + item.content);
+        if (locationMatch) {
+            const coords = await geocodeLocation(locationMatch);
+            if (coords) {
+                item.lat = coords.lat;
+                item.lng = coords.lng;
+                item.location = locationMatch;
+            }
+        }
+    }
+}
+
+// Extract possible location from text
+function extractLocationFromText(text) {
+    // Common UK location patterns
+    const patterns = [
+        /in ([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),?\s*(?:UK|Scotland|England|Wales)/i,
+        /([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s+(?:council|police|hospital|school|university)/i,
+        /(?:near|around|in)\s+([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)/i,
+    ];
+
+    for (const pattern of patterns) {
+        const match = text.match(pattern);
+        if (match && match[1]) {
+            return match[1].trim();
+        }
+    }
+    return null;
+}
+
+// Geocode a location name using postcodes.io places API
+async function geocodeLocation(locationName) {
+    try {
+        const response = await fetch(`https://api.postcodes.io/places?q=${encodeURIComponent(locationName)}&limit=1`);
+        const data = await response.json();
+        if (data.status === 200 && data.result && data.result.length > 0) {
+            return {
+                lat: data.result[0].latitude,
+                lng: data.result[0].longitude
+            };
+        }
+    } catch (error) {
+        console.log('Geocoding failed for:', locationName);
+    }
+    return null;
+}
+
+// Get region name from postcode
+function getRegionFromPostcode(postcode) {
+    const prefix = postcode.split(' ')[0].replace(/[0-9]/g, '');
+    const regions = {
+        'G': 'Glasgow',
+        'EH': 'Edinburgh',
+        'AB': 'Aberdeen',
+        'DD': 'Dundee',
+        'IV': 'Inverness',
+        'PA': 'Paisley',
+        'KA': 'Kilmarnock',
+        'FK': 'Falkirk',
+        'ML': 'Motherwell',
+        'M': 'Manchester',
+        'L': 'Liverpool',
+        'B': 'Birmingham',
+        'LS': 'Leeds',
+        'S': 'Sheffield',
+        'NE': 'Newcastle',
+        'BS': 'Bristol',
+        'CF': 'Cardiff',
+        'BT': 'Belfast',
+        'SW': 'London',
+        'SE': 'London',
+        'E': 'London',
+        'N': 'London',
+        'W': 'London',
+        'EC': 'London',
+        'WC': 'London',
+        'NW': 'London',
+    };
+    return regions[prefix] || null;
+}
+
+// Get nearby area names based on coordinates
+function getNearbyAreas(lat, lng) {
+    // Define major UK areas with their coordinates
+    const ukAreas = [
+        { name: 'Glasgow', lat: 55.8642, lng: -4.2518 },
+        { name: 'Edinburgh', lat: 55.9533, lng: -3.1883 },
+        { name: 'Milngavie', lat: 55.9420, lng: -4.3170 },
+        { name: 'Bearsden', lat: 55.9180, lng: -4.3340 },
+        { name: 'Kirkintilloch', lat: 55.9393, lng: -4.1530 },
+        { name: 'Paisley', lat: 55.8456, lng: -4.4239 },
+        { name: 'East Kilbride', lat: 55.7649, lng: -4.1769 },
+        { name: 'Hamilton', lat: 55.7775, lng: -4.0399 },
+        { name: 'Motherwell', lat: 55.7891, lng: -3.9915 },
+        { name: 'Stirling', lat: 56.1165, lng: -3.9369 },
+        { name: 'Manchester', lat: 53.4808, lng: -2.2426 },
+        { name: 'Liverpool', lat: 53.4084, lng: -2.9916 },
+        { name: 'Birmingham', lat: 52.4862, lng: -1.8904 },
+        { name: 'Leeds', lat: 53.8008, lng: -1.5491 },
+        { name: 'London', lat: 51.5074, lng: -0.1278 },
+        { name: 'Bristol', lat: 51.4545, lng: -2.5879 },
+        { name: 'Cardiff', lat: 51.4816, lng: -3.1791 },
+        { name: 'Belfast', lat: 54.5973, lng: -5.9301 },
+        { name: 'Newcastle', lat: 54.9783, lng: -1.6178 },
+        { name: 'Aberdeen', lat: 57.1497, lng: -2.0943 },
+        { name: 'Dundee', lat: 56.4620, lng: -2.9707 },
+    ];
+
+    // Find areas within ~30 miles
+    return ukAreas
+        .map(area => ({
+            ...area,
+            distance: calculateDistance(lat, lng, area.lat, area.lng)
+        }))
+        .filter(area => area.distance < 30)
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 3)
+        .map(area => area.name);
+}
+
+// Clean HTML from RSS content
+function cleanHtml(html) {
+    if (!html) return '';
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
+}
+
+// Extract source from Google News title (format: "Title - Source")
+function extractSource(title) {
+    const parts = title.split(' - ');
+    if (parts.length > 1) {
+        return parts[parts.length - 1].trim();
+    }
+    return null;
+}
+
+// Categorize article based on keywords
+function categorizeArticle(text) {
+    const lowerText = text.toLowerCase();
+
+    for (const [category, keywords] of Object.entries(categoryKeywords)) {
+        for (const keyword of keywords) {
+            if (lowerText.includes(keyword)) {
+                return category;
+            }
+        }
+    }
+    return 'community'; // Default category
+}
+
+// Show loading state for news
+function showNewsLoading() {
+    const container = document.getElementById('news-container');
+    container.innerHTML = `
+        <div class="news-loading">
+            <div class="news-spinner"></div>
+            <span>Fetching local news for ${currentLocation.name || currentLocation.postcode}...</span>
+        </div>
+    `;
+}
+
+// Hide loading state
+function hideNewsLoading() {
+    // Loading will be replaced by renderNews
+}
+
+// Static fallback data removed - now using dynamic fetch
+const fallbackNewsData = [
     {
-        id: 1,
-        title: "Pavement Parking Ban Enforcement Begins",
-        content: "East Renfrewshire Council has begun enforcement of the pavement parking ban from 5 January 2026. Drivers parking on pavements may now face fines. The ban aims to improve accessibility for wheelchair users and those with pushchairs.",
+        id: 'fallback-1',
+        title: "Unable to load news",
+        content: "We couldn't fetch the latest news for your area. Please check your internet connection and try refreshing.",
+        location: "Your Area",
+        lat: 55.8642,
+        lng: -4.2518,
+        category: "community",
+        source: "Local News App",
+        sourceUrl: "#",
+        date: new Date().toISOString().split('T')[0]
+    }
+];
         location: "Newton Mearns",
         lat: 55.7714,
         lng: -4.3326,
@@ -1471,6 +1765,14 @@ function updateLocationUI() {
 // Render news items
 function renderNews() {
     const container = document.getElementById('news-container');
+
+    // If no news data yet, show appropriate message
+    if (!newsData || newsData.length === 0) {
+        document.getElementById('news-count').textContent = '0 stories';
+        container.innerHTML = `<div class="no-news">No news available. Try refreshing or changing your location.</div>`;
+        return;
+    }
+
     const processedNews = processNewsData(newsData);
 
     const filteredNews = currentCategory === 'all'
@@ -1480,7 +1782,7 @@ function renderNews() {
     document.getElementById('news-count').textContent = `${filteredNews.length} stories`;
 
     if (filteredNews.length === 0) {
-        container.innerHTML = `<div class="no-news">No news found within ${currentRadius} miles of ${currentLocation.name || currentLocation.postcode}.</div>`;
+        container.innerHTML = `<div class="no-news">No news found within ${currentRadius} miles of ${currentLocation.name || currentLocation.postcode}. Try increasing the search radius.</div>`;
         return;
     }
 
@@ -1540,7 +1842,7 @@ async function handleSetLocation() {
         localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
 
         updateLocationUI();
-        renderNews();
+        fetchAllNews(); // Fetch new news for the new location
         fetchWeatherData();
         hideHomeEdit();
         setPostcodeStatus('', '');
@@ -1586,7 +1888,7 @@ async function handleUseLocation() {
                     localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
 
                     updateLocationUI();
-                    renderNews();
+                    fetchAllNews(); // Fetch news for new location
                     fetchWeatherData();
                     hideHomeEdit();
                     setPostcodeStatus('', '');
@@ -1602,7 +1904,7 @@ async function handleUseLocation() {
                     localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
 
                     updateLocationUI();
-                    renderNews();
+                    fetchAllNews(); // Fetch news for new location
                     fetchWeatherData();
                     hideHomeEdit();
                     setPostcodeStatus('', '');
@@ -1620,7 +1922,7 @@ async function handleUseLocation() {
                 localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
 
                 updateLocationUI();
-                renderNews();
+                fetchAllNews(); // Fetch news for new location
                 fetchWeatherData();
                 hideHomeEdit();
                 setPostcodeStatus('', '');
@@ -1669,16 +1971,16 @@ function handleRefresh() {
     // Update timestamp
     document.getElementById('update-time').textContent = new Date().toLocaleString('en-GB');
 
-    // Re-render news and fetch fresh weather
-    renderNews();
+    // Fetch fresh news and weather
+    fetchAllNews();
     fetchWeatherData();
 
-    // Remove spinning class after animation
+    // Remove spinning class after animation completes
     setTimeout(() => {
         btn.classList.remove('spinning');
-    }, 600);
+    }, 1000);
 
-    console.log('Refreshed news for location:', currentLocation);
+    console.log('Refreshing news for location:', currentLocation);
 }
 
 // Load saved settings from localStorage
@@ -1726,8 +2028,8 @@ function init() {
     // Update location UI
     updateLocationUI();
 
-    // Initial render
-    renderNews();
+    // Fetch news (will call renderNews when done)
+    fetchAllNews();
 
     // Fetch weather
     fetchWeatherData();
