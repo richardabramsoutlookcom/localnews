@@ -339,6 +339,544 @@ const newsData = [
         source: "Police Scotland",
         sourceUrl: "https://www.scotland.police.uk/",
         date: "2026-01-12"
+    },
+    // EDINBURGH
+    {
+        id: 21,
+        title: "Edinburgh Tram Extension Opens to Newhaven",
+        content: "The new Edinburgh tram extension to Newhaven is now fully operational, connecting Leith and the waterfront to the city centre. Journey times from Newhaven to the airport are approximately 35 minutes.",
+        location: "Newhaven, Edinburgh",
+        lat: 55.9785,
+        lng: -3.1883,
+        category: "traffic",
+        source: "Edinburgh Evening News",
+        sourceUrl: "https://www.edinburghnews.scotsman.com/",
+        date: "2026-01-08"
+    },
+    {
+        id: 22,
+        title: "Royal Mile Street Performers Face New Licensing Rules",
+        content: "Edinburgh Council has introduced new licensing requirements for buskers and street performers on the Royal Mile. Performers must now register and adhere to designated performance zones.",
+        location: "Royal Mile, Edinburgh",
+        lat: 55.9502,
+        lng: -3.1875,
+        category: "council",
+        source: "Edinburgh Evening News",
+        sourceUrl: "https://www.edinburghnews.scotsman.com/",
+        date: "2026-01-10"
+    },
+    {
+        id: 23,
+        title: "Stockbridge Market Celebrates 10th Anniversary",
+        content: "The popular Stockbridge Sunday Market is celebrating its 10th anniversary with special events throughout January. Local artisans and food vendors will offer exclusive anniversary deals.",
+        location: "Stockbridge, Edinburgh",
+        lat: 55.9580,
+        lng: -3.2130,
+        category: "events",
+        source: "The Scotsman",
+        sourceUrl: "https://www.scotsman.com/",
+        date: "2026-01-12"
+    },
+    // LONDON
+    {
+        id: 24,
+        title: "Elizabeth Line Ridership Hits Record Numbers",
+        content: "The Elizabeth Line has reported record passenger numbers over the Christmas period, with over 700,000 journeys made on Boxing Day alone. TfL credits the line's success with transforming east-west travel across London.",
+        location: "Liverpool Street, London",
+        lat: 51.5178,
+        lng: -0.0823,
+        category: "traffic",
+        source: "Evening Standard",
+        sourceUrl: "https://www.standard.co.uk/",
+        date: "2026-01-05"
+    },
+    {
+        id: 25,
+        title: "Camden Market Fire - Investigation Ongoing",
+        content: "Fire investigators continue to examine the cause of a blaze that damaged several stalls at Camden Market last weekend. No injuries were reported but traders face weeks of disruption.",
+        location: "Camden, London",
+        lat: 51.5416,
+        lng: -0.1461,
+        category: "crime",
+        source: "London Fire Brigade",
+        sourceUrl: "https://www.london-fire.gov.uk/",
+        date: "2026-01-09"
+    },
+    {
+        id: 26,
+        title: "Brixton Village Gets New Community Garden",
+        content: "A disused courtyard in Brixton Village has been transformed into a community garden. Local volunteers spent six months creating the urban oasis, which features native plants and a rainwater harvesting system.",
+        location: "Brixton, London",
+        lat: 51.4613,
+        lng: -0.1146,
+        category: "community",
+        source: "Brixton Blog",
+        sourceUrl: "https://brixtonblog.com/",
+        date: "2026-01-11"
+    },
+    {
+        id: 27,
+        title: "Shoreditch Tech Hub Announces 500 New Jobs",
+        content: "A major fintech company is expanding its Shoreditch headquarters, creating 500 new jobs over the next two years. The expansion includes a new training academy for local residents.",
+        location: "Shoreditch, London",
+        lat: 51.5256,
+        lng: -0.0775,
+        category: "business",
+        source: "City AM",
+        sourceUrl: "https://www.cityam.com/",
+        date: "2026-01-14"
+    },
+    {
+        id: 28,
+        title: "Greenwich Observatory Free Entry Weekend",
+        content: "The Royal Observatory Greenwich is offering free entry this weekend as part of a new initiative to boost winter tourism. Visitors can explore the historic site and stand on the Prime Meridian line.",
+        location: "Greenwich, London",
+        lat: 51.4769,
+        lng: -0.0005,
+        category: "events",
+        source: "Time Out London",
+        sourceUrl: "https://www.timeout.com/london",
+        date: "2026-01-15"
+    },
+    // MANCHESTER
+    {
+        id: 29,
+        title: "Northern Quarter Independent Shops Rally",
+        content: "Independent shop owners in Manchester's Northern Quarter have launched a 'Shop Local' campaign to counter the rise of chain stores. The initiative includes late-night shopping events and collaborative promotions.",
+        location: "Northern Quarter, Manchester",
+        lat: 53.4839,
+        lng: -2.2353,
+        category: "business",
+        source: "Manchester Evening News",
+        sourceUrl: "https://www.manchestereveningnews.co.uk/",
+        date: "2026-01-07"
+    },
+    {
+        id: 30,
+        title: "Metrolink Expansion to Stockport Approved",
+        content: "Greater Manchester Combined Authority has approved plans to extend the Metrolink tram network to Stockport town centre. Construction is expected to begin in late 2026.",
+        location: "Stockport",
+        lat: 53.4106,
+        lng: -2.1575,
+        category: "council",
+        source: "Manchester Evening News",
+        sourceUrl: "https://www.manchestereveningnews.co.uk/",
+        date: "2026-01-13"
+    },
+    {
+        id: 31,
+        title: "Salford Quays New Year Fireworks Display Review",
+        content: "Thousands gathered at Salford Quays for the spectacular New Year's Eve fireworks display. Organisers report it was the largest turnout in the event's history.",
+        location: "Salford Quays, Manchester",
+        lat: 53.4711,
+        lng: -2.2974,
+        category: "events",
+        source: "Salford Now",
+        sourceUrl: "https://www.salfordnow.co.uk/",
+        date: "2026-01-02"
+    },
+    // BIRMINGHAM
+    {
+        id: 32,
+        title: "Bullring Shopping Centre Security Increased",
+        content: "Security measures at the Bullring shopping centre have been enhanced following a series of shoplifting incidents. New CCTV cameras and additional security personnel have been deployed.",
+        location: "Bullring, Birmingham",
+        lat: 52.4774,
+        lng: -1.8940,
+        category: "crime",
+        source: "Birmingham Mail",
+        sourceUrl: "https://www.birminghammail.co.uk/",
+        date: "2026-01-10"
+    },
+    {
+        id: 33,
+        title: "HS2 Curzon Street Station Construction Update",
+        content: "Construction of the new HS2 Curzon Street station in Birmingham is progressing on schedule. The station's distinctive curved roof structure is now visible, with completion expected in 2028.",
+        location: "Curzon Street, Birmingham",
+        lat: 52.4797,
+        lng: -1.8862,
+        category: "traffic",
+        source: "HS2",
+        sourceUrl: "https://www.hs2.org.uk/",
+        date: "2026-01-11"
+    },
+    {
+        id: 34,
+        title: "Digbeth Arts Quarter Festival Announced",
+        content: "A new arts festival celebrating Digbeth's creative community will take place in February. The week-long event features exhibitions, live music, and open studios across the historic industrial area.",
+        location: "Digbeth, Birmingham",
+        lat: 52.4750,
+        lng: -1.8810,
+        category: "events",
+        source: "Birmingham Live",
+        sourceUrl: "https://www.birminghamlive.co.uk/",
+        date: "2026-01-08"
+    },
+    // LIVERPOOL
+    {
+        id: 35,
+        title: "Baltic Triangle Noise Complaints Lead to Venue Review",
+        content: "Liverpool Council is reviewing licensing for Baltic Triangle venues following ongoing noise complaints from new residential developments. Venue owners argue the area's nightlife predates the housing.",
+        location: "Baltic Triangle, Liverpool",
+        lat: 53.3942,
+        lng: -2.9857,
+        category: "council",
+        source: "Liverpool Echo",
+        sourceUrl: "https://www.liverpoolecho.co.uk/",
+        date: "2026-01-09"
+    },
+    {
+        id: 36,
+        title: "Albert Dock Winter Ice Rink Extended",
+        content: "Due to popular demand, the Albert Dock ice rink will remain open until the end of January. The waterfront attraction has welcomed over 50,000 skaters since November.",
+        location: "Albert Dock, Liverpool",
+        lat: 53.4001,
+        lng: -2.9916,
+        category: "events",
+        source: "Liverpool Echo",
+        sourceUrl: "https://www.liverpoolecho.co.uk/",
+        date: "2026-01-06"
+    },
+    // LEEDS
+    {
+        id: 37,
+        title: "Leeds Kirkgate Market Renovation Complete",
+        content: "The historic Kirkgate Market has unveiled its newly renovated food hall, featuring local vendors and a new seating area. The Victorian market is one of Europe's largest covered markets.",
+        location: "Kirkgate, Leeds",
+        lat: 53.7966,
+        lng: -1.5399,
+        category: "business",
+        source: "Yorkshire Evening Post",
+        sourceUrl: "https://www.yorkshireeveningpost.co.uk/",
+        date: "2026-01-12"
+    },
+    {
+        id: 38,
+        title: "Headingley Stadium Concert Series Announced",
+        content: "Headingley Stadium has announced its summer concert lineup, featuring major international artists. Tickets go on sale next week, with early bird discounts for Yorkshire residents.",
+        location: "Headingley, Leeds",
+        lat: 53.8196,
+        lng: -1.5822,
+        category: "events",
+        source: "Leeds Live",
+        sourceUrl: "https://www.leeds-live.co.uk/",
+        date: "2026-01-14"
+    },
+    // BRISTOL
+    {
+        id: 39,
+        title: "Clifton Suspension Bridge Celebrates 160th Anniversary",
+        content: "Special events are planned throughout 2026 to mark the 160th anniversary of the Clifton Suspension Bridge. A new visitor centre will open in the spring showcasing Brunel's engineering legacy.",
+        location: "Clifton, Bristol",
+        lat: 51.4545,
+        lng: -2.6276,
+        category: "events",
+        source: "Bristol Post",
+        sourceUrl: "https://www.bristolpost.co.uk/",
+        date: "2026-01-05"
+    },
+    {
+        id: 40,
+        title: "St Nicholas Market Traders Fear Rent Increases",
+        content: "Traders at Bristol's historic St Nicholas Market have expressed concerns over proposed rent increases. A petition calling for affordable rents has gathered over 5,000 signatures.",
+        location: "St Nicholas Market, Bristol",
+        lat: 51.4535,
+        lng: -2.5936,
+        category: "business",
+        source: "Bristol 24/7",
+        sourceUrl: "https://www.bristol247.com/",
+        date: "2026-01-11"
+    },
+    // NEWCASTLE
+    {
+        id: 41,
+        title: "Quayside Sunday Market Returns",
+        content: "Newcastle's popular Quayside Sunday Market has returned after a winter break. Over 150 stalls offer local produce, crafts, and street food along the River Tyne.",
+        location: "Quayside, Newcastle",
+        lat: 54.9698,
+        lng: -1.6034,
+        category: "events",
+        source: "Chronicle Live",
+        sourceUrl: "https://www.chroniclelive.co.uk/",
+        date: "2026-01-12"
+    },
+    {
+        id: 42,
+        title: "St James' Park Expansion Plans Submitted",
+        content: "Newcastle United has submitted plans to expand St James' Park to 62,000 seats. The proposal includes improved accessibility and a new fan zone area.",
+        location: "St James' Park, Newcastle",
+        lat: 54.9756,
+        lng: -1.6217,
+        category: "business",
+        source: "Newcastle Chronicle",
+        sourceUrl: "https://www.chroniclelive.co.uk/",
+        date: "2026-01-10"
+    },
+    // CARDIFF
+    {
+        id: 43,
+        title: "Cardiff Bay Barrage 25th Anniversary",
+        content: "Cardiff Bay celebrates 25 years since the barrage created the freshwater lake. Special boat tours and exhibitions will run throughout the year highlighting the transformation of the area.",
+        location: "Cardiff Bay",
+        lat: 51.4637,
+        lng: -3.1634,
+        category: "events",
+        source: "Wales Online",
+        sourceUrl: "https://www.walesonline.co.uk/",
+        date: "2026-01-08"
+    },
+    {
+        id: 44,
+        title: "Principality Stadium Hosts International Rugby",
+        content: "The Six Nations kicks off with Wales hosting England at the Principality Stadium. Road closures and additional public transport services are in place for match day.",
+        location: "Principality Stadium, Cardiff",
+        lat: 51.4782,
+        lng: -3.1826,
+        category: "events",
+        source: "WRU",
+        sourceUrl: "https://www.wru.wales/",
+        date: "2026-01-15"
+    },
+    // BELFAST
+    {
+        id: 45,
+        title: "Titanic Quarter Development Phase 2 Begins",
+        content: "The second phase of the Titanic Quarter development has commenced, including new residential towers and a creative industries hub. The area continues to transform around the iconic Titanic Museum.",
+        location: "Titanic Quarter, Belfast",
+        lat: 54.6081,
+        lng: -5.9094,
+        category: "business",
+        source: "Belfast Telegraph",
+        sourceUrl: "https://www.belfasttelegraph.co.uk/",
+        date: "2026-01-07"
+    },
+    {
+        id: 46,
+        title: "Cathedral Quarter Arts Festival Dates Announced",
+        content: "Belfast's Cathedral Quarter Arts Festival will return in May with an expanded programme. Early bird tickets are now available for headline performances.",
+        location: "Cathedral Quarter, Belfast",
+        lat: 54.6022,
+        lng: -5.9266,
+        category: "events",
+        source: "Belfast Live",
+        sourceUrl: "https://www.belfastlive.co.uk/",
+        date: "2026-01-13"
+    },
+    // ABERDEEN
+    {
+        id: 47,
+        title: "Aberdeen Beach Esplanade Regeneration",
+        content: "Work begins on the £100m regeneration of Aberdeen Beach Esplanade. The project includes new leisure facilities, improved public spaces, and flood defences.",
+        location: "Aberdeen Beach",
+        lat: 57.1497,
+        lng: -2.0783,
+        category: "council",
+        source: "Press and Journal",
+        sourceUrl: "https://www.pressandjournal.co.uk/",
+        date: "2026-01-09"
+    },
+    {
+        id: 48,
+        title: "Union Street Pedestrianisation Trial",
+        content: "Aberdeen City Council is trialling pedestrianisation of a section of Union Street on weekends. Local businesses report mixed reactions to the initiative.",
+        location: "Union Street, Aberdeen",
+        lat: 57.1453,
+        lng: -2.0989,
+        category: "traffic",
+        source: "Evening Express",
+        sourceUrl: "https://www.eveningexpress.co.uk/",
+        date: "2026-01-11"
+    },
+    // DUNDEE
+    {
+        id: 49,
+        title: "V&A Dundee Breaks Visitor Records",
+        content: "V&A Dundee has announced record visitor numbers for 2025, with over 500,000 people visiting the waterfront museum. A major new exhibition opens in February.",
+        location: "V&A Dundee",
+        lat: 56.4577,
+        lng: -2.9668,
+        category: "events",
+        source: "The Courier",
+        sourceUrl: "https://www.thecourier.co.uk/",
+        date: "2026-01-06"
+    },
+    {
+        id: 50,
+        title: "Dundee Waterfront Eden Project Plans",
+        content: "Plans for an Eden Project attraction at Dundee Waterfront have moved forward with a new funding commitment. The eco-attraction could open by 2029.",
+        location: "Dundee Waterfront",
+        lat: 56.4570,
+        lng: -2.9650,
+        category: "business",
+        source: "The Courier",
+        sourceUrl: "https://www.thecourier.co.uk/",
+        date: "2026-01-14"
+    },
+    // INVERNESS
+    {
+        id: 51,
+        title: "Inverness Castle Transformation Opens",
+        content: "The transformed Inverness Castle is now open to the public as a world-class visitor attraction. The Spirit of the Highlands experience offers panoramic views and interactive exhibits.",
+        location: "Inverness Castle",
+        lat: 57.4770,
+        lng: -4.2253,
+        category: "events",
+        source: "Highland News",
+        sourceUrl: "https://www.highland-news.co.uk/",
+        date: "2026-01-05"
+    },
+    {
+        id: 52,
+        title: "A9 Dualling Works Resume After Winter Break",
+        content: "Dualling works on the A9 between Inverness and Perth have resumed after the Christmas break. Drivers are advised to expect delays and follow diversion signs.",
+        location: "A9 (Inverness)",
+        lat: 57.4600,
+        lng: -4.2100,
+        category: "traffic",
+        source: "Transport Scotland",
+        sourceUrl: "https://www.transport.gov.scot/",
+        date: "2026-01-08"
+    },
+    // YORK
+    {
+        id: 53,
+        title: "York Minster Restoration Fund Reaches Target",
+        content: "The York Minster restoration fund has reached its £5m target thanks to donations from around the world. Essential stonework repairs will begin in the spring.",
+        location: "York Minster",
+        lat: 53.9620,
+        lng: -1.0818,
+        category: "community",
+        source: "York Press",
+        sourceUrl: "https://www.yorkpress.co.uk/",
+        date: "2026-01-12"
+    },
+    {
+        id: 54,
+        title: "Shambles Named Best Street in Britain Again",
+        content: "York's historic Shambles has been voted Britain's best street for the third year running. The medieval shopping street attracts millions of visitors annually.",
+        location: "The Shambles, York",
+        lat: 53.9594,
+        lng: -1.0795,
+        category: "business",
+        source: "Visit York",
+        sourceUrl: "https://www.visityork.org/",
+        date: "2026-01-10"
+    },
+    // BATH
+    {
+        id: 55,
+        title: "Roman Baths Night Tours Launch",
+        content: "The Roman Baths in Bath is launching evening torchlit tours for the first time. The atmospheric tours will run on selected weekends and must be pre-booked.",
+        location: "Roman Baths, Bath",
+        lat: 51.3812,
+        lng: -2.3599,
+        category: "events",
+        source: "Bath Chronicle",
+        sourceUrl: "https://www.bathchronicle.co.uk/",
+        date: "2026-01-09"
+    },
+    // OXFORD
+    {
+        id: 56,
+        title: "Bodleian Library Rare Book Discovery",
+        content: "Archivists at the Bodleian Library have discovered a previously unknown medieval manuscript during routine conservation work. The 600-year-old document is now being studied by historians.",
+        location: "Bodleian Library, Oxford",
+        lat: 51.7536,
+        lng: -1.2546,
+        category: "community",
+        source: "Oxford Mail",
+        sourceUrl: "https://www.oxfordmail.co.uk/",
+        date: "2026-01-11"
+    },
+    // CAMBRIDGE
+    {
+        id: 57,
+        title: "Cambridge Punting Season Opens Early",
+        content: "Unseasonably warm January weather has led to an early start to the punting season on the River Cam. Tour operators report strong bookings from weekend visitors.",
+        location: "River Cam, Cambridge",
+        lat: 52.2022,
+        lng: 0.1149,
+        category: "events",
+        source: "Cambridge News",
+        sourceUrl: "https://www.cambridge-news.co.uk/",
+        date: "2026-01-13"
+    },
+    // BRIGHTON
+    {
+        id: 58,
+        title: "Brighton Pier Restoration Work Begins",
+        content: "Essential restoration work has begun on Brighton Palace Pier. The Victorian landmark will remain open during the works, with some rides temporarily closed.",
+        location: "Brighton Pier",
+        lat: 50.8167,
+        lng: -0.1368,
+        category: "business",
+        source: "The Argus",
+        sourceUrl: "https://www.theargus.co.uk/",
+        date: "2026-01-07"
+    },
+    {
+        id: 59,
+        title: "North Laine Record Store Day Preview",
+        content: "Brighton's North Laine independent record shops are gearing up for Record Store Day with exclusive vinyl releases and in-store performances announced.",
+        location: "North Laine, Brighton",
+        lat: 50.8262,
+        lng: -0.1390,
+        category: "events",
+        source: "Brighton & Hove Independent",
+        sourceUrl: "https://www.brightonandhoveindependent.co.uk/",
+        date: "2026-01-15"
+    },
+    // PLYMOUTH
+    {
+        id: 60,
+        title: "Plymouth Hoe New Year's Day Swim",
+        content: "Over 300 brave swimmers took part in the traditional New Year's Day swim at Plymouth Hoe. The charity event raised £15,000 for local hospices.",
+        location: "Plymouth Hoe",
+        lat: 50.3654,
+        lng: -4.1427,
+        category: "community",
+        source: "Plymouth Herald",
+        sourceUrl: "https://www.plymouthherald.co.uk/",
+        date: "2026-01-02"
+    },
+    // NORWICH
+    {
+        id: 61,
+        title: "Norwich Castle Keep Reopening",
+        content: "Norwich Castle's Norman keep has reopened following a major refurbishment. New galleries tell the story of the castle's 900-year history with interactive displays.",
+        location: "Norwich Castle",
+        lat: 52.6283,
+        lng: 1.2945,
+        category: "events",
+        source: "Eastern Daily Press",
+        sourceUrl: "https://www.edp24.co.uk/",
+        date: "2026-01-10"
+    },
+    // NOTTINGHAM
+    {
+        id: 62,
+        title: "Nottingham Contemporary New Exhibition",
+        content: "Nottingham Contemporary has unveiled its major spring exhibition featuring works by Turner Prize-nominated artists. Free entry continues thanks to Arts Council funding.",
+        location: "Nottingham Contemporary",
+        lat: 52.9490,
+        lng: -1.1460,
+        category: "events",
+        source: "Nottingham Post",
+        sourceUrl: "https://www.nottinghampost.com/",
+        date: "2026-01-12"
+    },
+    // SOUTHAMPTON
+    {
+        id: 63,
+        title: "Southampton Cruise Terminal Record Year",
+        content: "Southampton cruise terminal handled a record 2.5 million passengers in 2025. New terminal facilities are planned to accommodate even larger ships.",
+        location: "Southampton Port",
+        lat: 50.8963,
+        lng: -1.4048,
+        category: "business",
+        source: "Daily Echo",
+        sourceUrl: "https://www.dailyecho.co.uk/",
+        date: "2026-01-08"
     }
 ];
 
@@ -696,6 +1234,7 @@ async function handleSetLocation() {
     setPostcodeStatus('Looking up postcode...', 'loading');
 
     const result = await fetchPostcodeCoordinates(postcode);
+    console.log('Postcode lookup result:', result);
 
     if (result) {
         currentLocation = {
@@ -704,6 +1243,7 @@ async function handleSetLocation() {
             name: result.name,
             postcode: result.postcode
         };
+        console.log('Updated currentLocation:', currentLocation);
 
         // Save to localStorage
         localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
@@ -720,12 +1260,134 @@ async function handleSetLocation() {
     btn.disabled = false;
 }
 
+// Handle geolocation
+async function handleUseLocation() {
+    const btn = document.getElementById('use-location-btn');
+
+    if (!navigator.geolocation) {
+        setPostcodeStatus('Geolocation is not supported by your browser', 'error');
+        return;
+    }
+
+    btn.disabled = true;
+    setPostcodeStatus('Getting your location...', 'loading');
+
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const { latitude, longitude } = position.coords;
+            console.log('Got geolocation:', latitude, longitude);
+
+            // Reverse geocode to get postcode
+            try {
+                const response = await fetch(`https://api.postcodes.io/postcodes?lon=${longitude}&lat=${latitude}`);
+                const data = await response.json();
+
+                if (data.status === 200 && data.result && data.result.length > 0) {
+                    const nearest = data.result[0];
+                    currentLocation = {
+                        lat: latitude,
+                        lng: longitude,
+                        name: nearest.admin_district || nearest.parish || 'Your Location',
+                        postcode: nearest.postcode
+                    };
+                    console.log('Set location from geolocation:', currentLocation);
+
+                    localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
+
+                    updateLocationUI();
+                    renderNews();
+                    fetchWeatherData();
+                    hideHomeEdit();
+                    setPostcodeStatus('', '');
+                } else {
+                    // Use coordinates without postcode
+                    currentLocation = {
+                        lat: latitude,
+                        lng: longitude,
+                        name: 'Your Location',
+                        postcode: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
+                    };
+
+                    localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
+
+                    updateLocationUI();
+                    renderNews();
+                    fetchWeatherData();
+                    hideHomeEdit();
+                    setPostcodeStatus('', '');
+                }
+            } catch (error) {
+                console.error('Reverse geocode failed:', error);
+                // Fall back to using coordinates directly
+                currentLocation = {
+                    lat: latitude,
+                    lng: longitude,
+                    name: 'Your Location',
+                    postcode: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
+                };
+
+                localStorage.setItem('localnews-location', JSON.stringify(currentLocation));
+
+                updateLocationUI();
+                renderNews();
+                fetchWeatherData();
+                hideHomeEdit();
+                setPostcodeStatus('', '');
+            }
+
+            btn.disabled = false;
+        },
+        (error) => {
+            console.error('Geolocation error:', error);
+            let message = 'Could not get your location';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    message = 'Location permission denied. Please allow location access.';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    message = 'Location unavailable. Please try again.';
+                    break;
+                case error.TIMEOUT:
+                    message = 'Location request timed out. Please try again.';
+                    break;
+            }
+            setPostcodeStatus(message, 'error');
+            btn.disabled = false;
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 300000 // 5 minutes
+        }
+    );
+}
+
 // Handle radius change
 function handleRadiusChange(value) {
     currentRadius = parseInt(value);
     document.getElementById('radius-value').textContent = currentRadius;
     localStorage.setItem('localnews-radius', currentRadius);
     renderNews();
+}
+
+// Handle refresh
+function handleRefresh() {
+    const btn = document.getElementById('refresh-btn');
+    btn.classList.add('spinning');
+
+    // Update timestamp
+    document.getElementById('update-time').textContent = new Date().toLocaleString('en-GB');
+
+    // Re-render news and fetch fresh weather
+    renderNews();
+    fetchWeatherData();
+
+    // Remove spinning class after animation
+    setTimeout(() => {
+        btn.classList.remove('spinning');
+    }, 600);
+
+    console.log('Refreshed news for location:', currentLocation);
 }
 
 // Load saved settings from localStorage
@@ -777,6 +1439,7 @@ function init() {
     document.getElementById('change-home-btn').addEventListener('click', showHomeEdit);
     document.getElementById('cancel-edit-btn').addEventListener('click', hideHomeEdit);
     document.getElementById('set-location-btn').addEventListener('click', handleSetLocation);
+    document.getElementById('use-location-btn').addEventListener('click', handleUseLocation);
 
     document.getElementById('postcode-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -792,6 +1455,9 @@ function init() {
         currentCategory = e.target.value;
         renderNews();
     });
+
+    // Refresh button
+    document.getElementById('refresh-btn').addEventListener('click', handleRefresh);
 
     // Retry weather button
     document.getElementById('retry-weather-btn').addEventListener('click', fetchWeatherData);
