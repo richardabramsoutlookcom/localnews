@@ -1,13 +1,21 @@
 {
   "name": "localnews",
-  "version": "1.0.0",
-  "description": "Local news app for G77 5PG area - 10 mile radius",
-  "main": "index.html",
+  "version": "2.0.0",
+  "description": "Local UK news app with web search and local SQLite database",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve .",
-    "dev": "npx serve ."
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "keywords": ["news", "local", "glasgow", "g77"],
+  "keywords": ["news", "local", "uk", "sqlite"],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
