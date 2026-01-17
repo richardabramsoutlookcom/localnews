@@ -1,0 +1,13 @@
+{
+  "name": "localnews",
+  "version": "1.0.0",
+  "description": "Local news app for G77 5PG area - 10 mile radius",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": ["news", "local", "glasgow", "g77"],
+  "author": "",
+  "license": "MIT"
+}
